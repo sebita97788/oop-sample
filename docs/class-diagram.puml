@@ -1,0 +1,72 @@
+﻿@startuml classDiagram
+package "Acme.OOProgramming.Shared" {
+class "Money" <<Value Object>> {
++Amount : decimal
++Currency : Currency
+--
++Add(other)
++Multiply(factor)
+}
+
+class "Currency" <<Value Object>> {
++Code : string
+}
+
+class "Address" <<Value Object>> {
++Street : string
++Number : string
++City : string
++StateOrRegion : string?
++PostalCode : string
++Country : string
+}
+}
+
+package "Acme.OOProgramming.SupplyChain" as supplyChain {
+class "SupplierId" <<Value Object>> {
++Identifier : string
+}
+
+class "Supplier" <<Aggregate Root>> {
++Id : SupplierId
++Name : string
++Address : Address
+}
+}
+package "Acme.OOProgramming.Procurement" as procurement {
+class "SupplierId" <<Value Object>> {
++Identifier : string
+}
+
+class "PurchaseOrder" <<Aggregate Root>> {
++OrderNumber : string
++SupplierId : SupplierId
++OrderDate : DateOnly
++Currency : Currency
++Items : IReadOnlyList<PurchaseOrderItem>
+--
++AddItem(productId, quantity, unitPriceAmount)
++CalculateTotal()
+}
+
+class "PurchaseOrderItem" <<Entity>> {
++ProductId : ProductId
++Quantity : int
++UnitPrice : Money
+--
++CalculateItemTotal()
+}
+
+class "ProductId" <<Value Object>> {
++Id : Guid
+}
+}
+Supplier o--> "1" supplyChain.SupplierId
+Supplier o--> "1" Address
+PurchaseOrder o--> "1" procurement.SupplierId
+PurchaseOrder *--> "many" PurchaseOrderItem : manages
+PurchaseOrderItem o--> "1" Money
+PurchaseOrderItem o--> "1" ProductId
+PurchaseOrder o--> "1" Money
+Money o--> "1" Currency
+@enduml
