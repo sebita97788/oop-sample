@@ -22,6 +22,8 @@ public class PurchaseOrderItem
         UnitPrice = unitPrice;
     }
 
+    public Money CalculateItemTotal() => UnitPrice * Quantity;
+
     public override bool Equals(object? obj)
     {
         return obj is PurchaseOrderItem other && ProductId == other.ProductId && Quantity == other.Quantity && UnitPrice == other.UnitPrice;
