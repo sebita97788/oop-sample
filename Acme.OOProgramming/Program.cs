@@ -13,3 +13,7 @@ Console.WriteLine($"Registered Supplier {supplier.Id.Identifier}: {supplier}");
 var purchaseOrder = new PurchaseOrder("PO001", new SupplierId(supplier.Id.Identifier), DateTime.UtcNow, "USD");
 
 Console.WriteLine($"Purchase Order {purchaseOrder.OrderNumber} created for Supplier ID {purchaseOrder.SupplierId.Identifier} in {purchaseOrder.Currency}");
+
+purchaseOrder.AddItem(ProductId.New(), 10, 25.99m);
+purchaseOrder.AddItem(ProductId.New(), 20, 19.99m);
+Console.WriteLine($"Items added: {purchaseOrder.Items.Count}");
