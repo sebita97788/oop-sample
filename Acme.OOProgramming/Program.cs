@@ -17,3 +17,8 @@ Console.WriteLine($"Purchase Order {purchaseOrder.OrderNumber} created for Suppl
 purchaseOrder.AddItem(ProductId.New(), 10, 25.99m);
 purchaseOrder.AddItem(ProductId.New(), 20, 19.99m);
 Console.WriteLine($"Items added: {purchaseOrder.Items.Count}");
+
+foreach (var item in purchaseOrder.Items)
+{
+    Console.WriteLine($"Order Item Total: {item.CalculateItemTotal()}");
+}
