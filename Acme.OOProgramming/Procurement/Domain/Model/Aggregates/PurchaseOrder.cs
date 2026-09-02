@@ -46,6 +46,12 @@ public class PurchaseOrder
         _items.Add(item);
     }
 
+    public Money CalculateTotal()
+    {
+        var total = _items.Sum(item => item.CalculateItemTotal().Amount);
+        return new Money(total, Currency);
+    }
+
     public override bool Equals(object? obj)
     {
         return obj is PurchaseOrder other && OrderNumber == other.OrderNumber;

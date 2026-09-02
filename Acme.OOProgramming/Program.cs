@@ -22,3 +22,5 @@ foreach (var item in purchaseOrder.Items)
 {
     Console.WriteLine($"Order Item Total: {item.CalculateItemTotal()}");
 }
+
+Console.WriteLine($"Order Total: {purchaseOrder.CalculateTotal()}");
